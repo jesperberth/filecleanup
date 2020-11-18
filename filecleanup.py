@@ -27,8 +27,8 @@ def getRemoveDate():
     return removeDate
 
 def getFiles():
-    for x in os.walk(PATH):
-        for y in glob.glob(os.path.join(x[0], '*.txt')):
+    for x in os.walk(storagepath):
+        for y in glob.glob(os.path.join(x[0], '*')):
             result.append(y)
     
 #getLastAccess()
