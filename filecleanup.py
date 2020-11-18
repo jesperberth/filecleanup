@@ -5,7 +5,6 @@
 import os
 import stat
 import time
-import glob
 from datetime import datetime, timedelta
 
 #storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
@@ -23,18 +22,23 @@ def getLastAccess(file):
 def getRemoveDate():
     removeDate = datetime.now() + timedelta(days=5)
     removeDate = removeDate.strftime("%c")
-    print(removeDate)
+    #print(removeDate)
     return removeDate
 
 def getFiles():
     for r, d, f in os.walk(storagepath):
         for file in f:
-            #if '.txt' in file:
             filesresult.append(os.path.join(r, file))
-    
-#getLastAccess()
-getFiles()
 
-for f in filesresult:
-    getLastAccess(f)
-    print(f)
+def testFiles():
+    rmdate = getRemoveDate
+    print(rmdate)
+    for f in filesresult:
+        print(f)
+        
+
+getFiles()
+testFiles()
+#for f in filesresult:
+#    getLastAccess(f)
+#    print(f)
