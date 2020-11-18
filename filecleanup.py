@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # File cleanup 0.0.1 - 18/11/2020
 # Author  Jesper.berth@arrow.com
 # 
