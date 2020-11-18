@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 #storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
 storagepath = "/mnt/transport/"
 
-result = []
+filesresult = []
 
 print("File Cleanup")
 
@@ -27,13 +27,12 @@ def getRemoveDate():
     return removeDate
 
 def getFiles():
-    for x in os.walk(storagepath):
-        xx = os.path.abspath(x)
-        print(xx)
-        #for y in glob.glob(os.path.join(x[0], '*')):
-        #    result.append(y)
+    for r, d, f in os.walk(storagepath):
+        for file in f:
+            #if '.txt' in file:
+            filesresult.append(os.path.join(r, file))
     
 #getLastAccess()
 getFiles()
 
-print(result)
+print(filesresult)
