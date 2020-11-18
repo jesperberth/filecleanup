@@ -31,7 +31,7 @@ def getFiles():
             filesresult.append(os.path.join(r, file))
 
 def testFiles():
-    rmdate = getRemoveDate
+    rmdate = getRemoveDate()
     print(rmdate)
     for f in filesresult:
         print(f)
