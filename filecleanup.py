@@ -35,5 +35,5 @@ def getFiles():
 #getLastAccess()
 getFiles()
 
-for f in filesresult
+for f in filesresult:
     print(f)
