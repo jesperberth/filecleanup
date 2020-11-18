@@ -15,8 +15,8 @@ filesresult = []
 
 print("File Cleanup")
 
-def getLastAccess():
-    fileStatsObj = os.stat ( storagepath )
+def getLastAccess(file):
+    fileStatsObj = os.stat ( file )
     accessTime = time.ctime ( fileStatsObj [ stat.ST_ATIME ] )
     print(accessTime)
 
@@ -36,4 +36,5 @@ def getFiles():
 getFiles()
 
 for f in filesresult:
+    getLastAccess(f)
     print(f)
