@@ -20,6 +20,8 @@ def getRemoveDate():
     removeDate = datetime.now() + timedelta(days=5)
     removeDate = removeDate.strftime("%c")
     print(removeDate)
+    return removeDate
 
 getLastAccess()
-getRemoveDate()
+rmData = getRemoveDate()
+print(rmDate)
