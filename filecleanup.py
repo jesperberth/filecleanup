@@ -28,6 +28,7 @@ def getRemoveDate():
 
 def getFiles():
     for x in os.walk(storagepath):
+        print(x)
         for y in glob.glob(os.path.join(x[0], '*')):
             result.append(y)
     
