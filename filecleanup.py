@@ -5,6 +5,7 @@
 import os
 import stat
 import time
+from datetime import datetime, timedelta
 
 storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
 
@@ -15,4 +16,9 @@ def getLastAccess():
     accessTime = time.ctime ( fileStatsObj [ stat.ST_ATIME ] )
     print(accessTime)
 
+def getRemoveDate():
+    removeDate = datetime.now() + timedelta(days=5)
+    print(removeDate)
+
 getLastAccess()
+getRemoveDate()
