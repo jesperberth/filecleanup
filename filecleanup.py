@@ -42,6 +42,8 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             print(f + str(fileaccess))
+        else:
+            print(f + str(fileaccess))
         
 getFiles()
 testFiles()
