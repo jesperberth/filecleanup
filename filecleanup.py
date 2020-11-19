@@ -59,7 +59,7 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             addLog(f)
-            removeFile(f)
+            removeFiles(f)
 
 def testDirs():
     for d in dirresult:
@@ -68,15 +68,18 @@ def testDirs():
             removeDir(d)
 
 def removeFiles(file):
+    global filecount
     try:
         os.remove(file)
-        filecount = filecount + 1
+        filecount += 1
     except OSError as e:
         print("Error: %s : %s" % (file, e.strerror))
 
 def removeDir(dir):
+    global dircount
     try:
         os.rmdir(dir)
+        dircount += 1
     except OSError as e:
         print("Error: %s : %s" % (dir, e.strerror))
 
@@ -92,5 +95,5 @@ for x in range(0, 5):
 
 logfile.close() 
 
-print("Files: "filecount)
-print("Dirs: "dircount)
+print("Files: "+ filecount)
+print("Dirs: "+ dircount)
