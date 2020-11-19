@@ -95,5 +95,5 @@ for x in range(0, 5):
 
 logfile.close() 
 
-print("Files: "+ filecount)
-print("Dirs: "+ dircount)
+print("Files: "+ str(filecount))
+print("Dirs: "+ str(dircount))
