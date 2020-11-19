@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 #storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
 storagepath = "/mnt/transport/"
-deletedays = -5
+deletedays = -1
 
 # dont change below
 filesresult = []
