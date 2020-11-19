@@ -63,7 +63,7 @@ def testFiles():
 def testDirs():
     for d in dirresult:
         if len(os.listdir(d) ) == 0:
-            print("Is empty")
+            print(d +" Is empty")
 
 
 getFiles()
