@@ -57,4 +57,4 @@ def testFiles():
         
 getFiles()
 testFiles()
-file1.close() 
+logfile.close() 
