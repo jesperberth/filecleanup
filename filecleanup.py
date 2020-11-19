@@ -64,7 +64,13 @@ def testDirs():
     for d in dirresult:
         if len(os.listdir(d) ) == 0:
             print(d +" Is empty")
+            removeDir(d)
 
+def removeDir(dir):
+    try:
+        os.rmdir(dir)
+    except OSError as e:
+        print("Error: %s : %s" % (dir, e.strerror))
 
 getFiles()
 getDirs()
