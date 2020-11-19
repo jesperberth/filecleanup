@@ -39,12 +39,12 @@ def getRemoveDate():
     return removeDateEpoch
 
 def getFiles():
-    for r, f in os.walk(storagepath):
+    for r, d, f in os.walk(storagepath):
         for file in f:
             filesresult.append(os.path.join(r, file))
 
 def getDirs():
-    for r, d in os.walk(storagepath):
+    for r, d, f in os.walk(storagepath):
         for dir in d:
             dirresult.append(os.path.join(r, dir))
 
@@ -58,7 +58,7 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             print(f + str(fileaccess))
-            addLog(f)
+            #addLog(f)
         
 getFiles()
 getDirs()
