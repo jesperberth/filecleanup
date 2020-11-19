@@ -21,7 +21,8 @@ print("File Cleanup")
 def getLastAccess(file):
     fileStatsObj = os.stat ( file )
     accessTime = time.ctime ( fileStatsObj [ stat.ST_ATIME ] )
-    return accessTime
+    accessTimeEpoch = int(time.mktime(time.strptime(accessTime, pattern)))
+    return accessTimeEpoch
     #print(accessTime)
 
 def getRemoveDate():
