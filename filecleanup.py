@@ -42,7 +42,7 @@ def getFiles():
             filesresult.append(os.path.join(r, file))
 
 def addLog(file):
-    logfile.write(file)
+    logfile.write(file + "\n")
 
 def testFiles():
     rmdate = getRemoveDate()
