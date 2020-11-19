@@ -95,7 +95,7 @@ def removeDir(dir):
 
 def getFreeDisk():
     free = shutil.disk_usage(storagepath)
-    free = (free / (1024.0 ** 3))
+    #free = (free / (1024.0 ** 3))
     return free
 
 logfile.write("\n#################\n# Removed Files #\n#################\n")
