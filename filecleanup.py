@@ -42,7 +42,7 @@ def testFiles():
     print(rmdate)
     for f in filesresult:
         fileaccess = getLastAccess(f)
-        print(f + fileaccess)
+        print(f + str(fileaccess))
         
 
 getFiles()
