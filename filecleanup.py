@@ -2,6 +2,11 @@
 # File cleanup 0.0.1 - 18/11/2020
 # Author  Jesper.berth@arrow.com
 # 
+# create config.ini
+# 
+#
+#
+
 
 import os
 import stat
@@ -11,13 +16,11 @@ from configparser import ConfigParser
 
 # Configuration
 config_object = ConfigParser()
-config_object.read("../config.ini")
-storagepath = "/mnt/transport/"
-#deletedays = -1
-logdir = "/tmp/"
-
+config_object.read("/etc/fileclean/config.ini")
 options = config_object["OPTIONS"]
 deletedays = int(format(options["deletedays"]))
+logdir = format(options["logdir"])
+storagepath = format(options["storagepath"])
 
 # dont change below
 filesresult = []
