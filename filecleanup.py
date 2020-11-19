@@ -43,6 +43,7 @@ def testFiles():
         if rmdate > fileaccess:
             print(f + str(fileaccess))
         else:
+            print("OK")
             print(f + str(fileaccess))
         
 getFiles()
