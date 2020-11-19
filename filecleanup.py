@@ -10,9 +10,11 @@ from datetime import datetime, timedelta
 
 #storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
 storagepath = "/mnt/transport/"
-deletedays = 5
+deletedays = -5
 
+# dont change below
 filesresult = []
+pattern = '%a %b %d %H:%M:%S %Y'
 
 print("File Cleanup")
 
@@ -25,8 +27,9 @@ def getLastAccess(file):
 def getRemoveDate():
     removeDate = datetime.now() + timedelta(days=deletedays)
     removeDate = removeDate.strftime("%c")
+    removeDateEpoch = int(time.mktime(time.strptime(removeDate, pattern)))
     #print(removeDate)
-    return removeDate
+    return removeDateEpoch
 
 def getFiles():
     for r, d, f in os.walk(storagepath):
