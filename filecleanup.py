@@ -58,12 +58,12 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             print(f + str(fileaccess))
-            #addLog(f)
+            addLog(f)
 
 def testDirs():
     for d in dirresult:
         if len(os.listdir(d) ) == 0:
-            print(d +" Is empty")
+            addLog(d)
             removeDir(d)
 
 def removeDir(dir):
@@ -73,7 +73,10 @@ def removeDir(dir):
         print("Error: %s : %s" % (dir, e.strerror))
 
 getFiles()
-getDirs()
 testFiles()
-testDirs()
+logfile.write("#################\n# Removed Dirs\n\n")
+for x in range(0, 3):
+    getDirs()
+    testDirs()
+
 logfile.close() 
