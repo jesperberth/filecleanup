@@ -78,5 +78,6 @@ logfile.write("#################\n# Removed Dirs\n\n")
 for x in range(0, 3):
     getDirs()
     testDirs()
+    dirresult.clear()
 
 logfile.close() 
