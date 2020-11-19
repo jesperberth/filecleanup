@@ -15,6 +15,8 @@ logdir = "/tmp/"
 
 # dont change below
 filesresult = []
+dirresult = []
+
 pattern = '%a %b %d %H:%M:%S %Y'
 
 logfilename = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -37,9 +39,14 @@ def getRemoveDate():
     return removeDateEpoch
 
 def getFiles():
-    for r, d, f in os.walk(storagepath):
+    for r, f in os.walk(storagepath):
         for file in f:
             filesresult.append(os.path.join(r, file))
+
+def getDirs():
+    for r, d in os.walk(storagepath):
+        for dir in d:
+            dirresult.append(os.path.join(r, dir))
 
 def addLog(file):
     logfile.write(file + "\n")
@@ -54,5 +61,9 @@ def testFiles():
             addLog(f)
         
 getFiles()
+getDirs()
 testFiles()
 logfile.close() 
+
+for d in dirresult:
+    print(d)
