@@ -16,6 +16,8 @@ logdir = "/tmp/"
 # dont change below
 filesresult = []
 dirresult = []
+filecount = 0
+dircount = 0
 
 pattern = '%a %b %d %H:%M:%S %Y'
 
@@ -53,18 +55,24 @@ def addLog(file):
 
 def testFiles():
     rmdate = getRemoveDate()
-    print(rmdate)
     for f in filesresult:
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
-            print(f + str(fileaccess))
             addLog(f)
+            removeFile(f)
 
 def testDirs():
     for d in dirresult:
         if len(os.listdir(d) ) == 0:
             addLog(d)
             removeDir(d)
+
+def removeFiles(file):
+    try:
+        os.remove(file)
+        filecount = filecount + 1
+    except OSError as e:
+        print("Error: %s : %s" % (file, e.strerror))
 
 def removeDir(dir):
     try:
@@ -74,10 +82,15 @@ def removeDir(dir):
 
 getFiles()
 testFiles()
-logfile.write("#################\n# Removed Dirs\n\n")
-for x in range(0, 3):
+
+logfile.write("\n#################\n# Removed Dirs  #\n#################\n")
+
+for x in range(0, 5):
     getDirs()
     testDirs()
     dirresult.clear()
 
 logfile.close() 
+
+print("Files: "filecount)
+print("Dirs: "dircount)
