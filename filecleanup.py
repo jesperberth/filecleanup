@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 storagepath = "/mnt/transport/"
 deletedays = -1
 logdir = "/tmp/"
-logfile = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+logfile = datetime.now().strftime("%Y%m%d-%H%M%S")
 logfile = "fileclean-"+logfile+".txt"
 # dont change below
 filesresult = []
