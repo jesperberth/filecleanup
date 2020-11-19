@@ -17,7 +17,7 @@ storagepath = "/mnt/transport/"
 logdir = "/tmp/"
 
 options = config_object["OPTIONS"]
-deletedays = format(options["deletedays"])
+deletedays = int(format(options["deletedays"]))
 
 # dont change below
 filesresult = []
