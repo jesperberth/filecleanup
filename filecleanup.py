@@ -11,6 +11,7 @@
 import os
 import stat
 import time
+import shutil
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 
@@ -92,6 +93,11 @@ def removeDir(dir):
     except OSError as e:
         print("Error: %s : %s" % (dir, e.strerror))
 
+def getFreeDisk():
+    free = shutil.disk_usage(storagepath)
+    free = (free / (1024.0 ** 3))
+    return free
+
 logfile.write("\n#################\n# Removed Files #\n#################\n")
 
 getFiles()
@@ -108,3 +114,5 @@ logfile.close()
 
 print("Files: "+ str(filecount))
 print("Dirs: "+ str(dircount))
+freeDisk = getFreeDisk()
+print(freeDisk)
