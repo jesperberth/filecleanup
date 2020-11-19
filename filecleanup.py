@@ -59,11 +59,15 @@ def testFiles():
         if rmdate > fileaccess:
             print(f + str(fileaccess))
             #addLog(f)
-        
+
+def testDirs():
+    for d in dirresult:
+        if len(os.listdir(d) ) == 0:
+            print("Is empty")
+
+
 getFiles()
 getDirs()
 testFiles()
+testDirs()
 logfile.close() 
-
-for d in dirresult:
-    print(d)
