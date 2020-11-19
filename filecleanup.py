@@ -23,13 +23,11 @@ def getLastAccess(file):
     accessTime = time.ctime ( fileStatsObj [ stat.ST_ATIME ] )
     accessTimeEpoch = int(time.mktime(time.strptime(accessTime, pattern)))
     return accessTimeEpoch
-    #print(accessTime)
 
 def getRemoveDate():
     removeDate = datetime.now() + timedelta(days=deletedays)
     removeDate = removeDate.strftime("%c")
     removeDateEpoch = int(time.mktime(time.strptime(removeDate, pattern)))
-    #print(removeDate)
     return removeDateEpoch
 
 def getFiles():
@@ -42,11 +40,8 @@ def testFiles():
     print(rmdate)
     for f in filesresult:
         fileaccess = getLastAccess(f)
-        print(f + str(fileaccess))
+        if rmdate > fileaccess:
+            print(f + str(fileaccess))
         
-
 getFiles()
 testFiles()
-#for f in filesresult:
-#    getLastAccess(f)
-#    print(f)
