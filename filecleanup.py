@@ -8,10 +8,12 @@ import stat
 import time
 from datetime import datetime, timedelta
 
-#storagepath = "/mnt/transport/IT/._anyconnect-macos-4.9.04043-predeploy-k9.dmg"
+# Configuration
 storagepath = "/mnt/transport/"
 deletedays = -1
-
+logdir = "/tmp/"
+logfile = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+logfile = "fileclean-"+logfile+".txt"
 # dont change below
 filesresult = []
 pattern = '%a %b %d %H:%M:%S %Y'
@@ -35,6 +37,10 @@ def getFiles():
         for file in f:
             filesresult.append(os.path.join(r, file))
 
+def addLog(file):
+    print("ok")
+
+
 def testFiles():
     rmdate = getRemoveDate()
     print(rmdate)
@@ -42,9 +48,7 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             print(f + str(fileaccess))
-        else:
-            print("OK")
-            print(f + str(fileaccess))
         
 getFiles()
 testFiles()
+print(logfile)
