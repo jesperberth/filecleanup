@@ -7,11 +7,17 @@ import os
 import stat
 import time
 from datetime import datetime, timedelta
+from configparser import ConfigParser
 
 # Configuration
+config_object = ConfigParser()
+config_object.read("../config.ini")
 storagepath = "/mnt/transport/"
-deletedays = -1
+#deletedays = -1
 logdir = "/tmp/"
+
+options = config_object["OPTIONS"]
+deletedays = format(options["deletedays"])
 
 # dont change below
 filesresult = []
@@ -82,6 +88,8 @@ def removeDir(dir):
         dircount += 1
     except OSError as e:
         print("Error: %s : %s" % (dir, e.strerror))
+
+logfile.write("\n#################\n# Removed Files #\n#################\n")
 
 getFiles()
 testFiles()
