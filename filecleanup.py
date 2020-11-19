@@ -43,9 +43,6 @@ def getFiles():
 
 def addLog(file):
     logfile.write(file)
-    
-    print("ok")
-
 
 def testFiles():
     rmdate = getRemoveDate()
@@ -54,6 +51,7 @@ def testFiles():
         fileaccess = getLastAccess(f)
         if rmdate > fileaccess:
             print(f + str(fileaccess))
+            addLog(f)
         
 getFiles()
 testFiles()
