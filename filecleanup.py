@@ -32,12 +32,6 @@ sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
 password = format(email["password"])
 
-# SMTP
-#message = """\
-#Subject: Hi there
-#
-#This message is sent from Python."""
-
 # dont change below
 filesresult = []
 dirresult = []
@@ -116,7 +110,8 @@ def getFreeDisk():
 
 def statusMessage():
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    mesSub = "Transport server clean Up - {}".format(startTime)
+    message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -162,6 +157,12 @@ def statusMail(message):
     finally:
         server.quit() 
 
+def timeNow():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
+
+startTime = timeNow()
 freeBeforeClean = getFreeDisk()
 
 logfile.write("\n#################\n# Removed Files #\n#################\n")
@@ -181,5 +182,6 @@ logfile.close()
 print("Files: "+ str(filecount))
 print("Dirs: "+ str(dircount))
 freeAfterClean = getFreeDisk()
+endTime = timeNow()
 message = statusMessage()
 statusMail(message)
