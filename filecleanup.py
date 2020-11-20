@@ -159,7 +159,7 @@ def statusMail(message):
 
 def timeNow():
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
+    current_time = now.strftime("%d/%m/%y-%H:%M:%S")
     return current_time
 
 startTime = timeNow()
