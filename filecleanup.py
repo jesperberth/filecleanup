@@ -2,16 +2,16 @@
 # File cleanup 0.0.1 - 18/11/2020
 # Author  Jesper.berth@arrow.com
 # 
-# create config.ini
+# create config file /etc/fileclean/config.ini
 # 
 #
 #
-
-
 import os
 import stat
 import time
 import shutil
+import smtplib
+import ssl
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 
@@ -19,9 +19,22 @@ from configparser import ConfigParser
 config_object = ConfigParser()
 config_object.read("/etc/fileclean/config.ini")
 options = config_object["OPTIONS"]
+email = config_object["EMAIL"]
+
 deletedays = int(format(options["deletedays"]))
 logdir = format(options["logdir"])
 storagepath = format(options["storagepath"])
+port = int(format(options["port"]))
+smtp_server = format(options["smtp_server"])
+sender_email = format(options["sender_email"])
+receiver_email = format(options["receiver_email"])
+password = format(options["password"])
+
+# SMTP
+message = """\
+Subject: Hi there
+
+This message is sent from Python."""
 
 # dont change below
 filesresult = []
@@ -98,6 +111,24 @@ def getFreeDisk():
     free = (free / (1024.0 ** 3))
     return free
 
+def statusMail():
+    context = ssl.create_default_context()
+    try:
+        server = smtplib.SMTP(smtp_server,port)
+        server.ehlo() # Can be omitted
+        server.starttls(context=context) # Secure the connection
+        server.ehlo() # Can be omitted
+        server.login(sender_email, password)
+        # TODO: Send email here
+        server.sendmail(sender_email, receiver_email, message)
+    except Exception as e:
+        # Print any error messages to stdout
+        print(e)
+    finally:
+        server.quit() 
+
+freeBeforeClean = getFreeDisk()
+
 logfile.write("\n#################\n# Removed Files #\n#################\n")
 
 getFiles()
@@ -114,5 +145,5 @@ logfile.close()
 
 print("Files: "+ str(filecount))
 print("Dirs: "+ str(dircount))
-freeDisk = getFreeDisk()
-print(freeDisk)
+freeAfterClean = getFreeDisk()
+statusMail()
