@@ -34,9 +34,7 @@ cc_email = format(email["cc_email"])
 password = format(email["password"])
 email1 = 'jesper.berth@arrow.com'
 email2 = 'jesper@berthit.dk','berthjesper@gmail.com'
-rcpt_mail = []
-rcpt_mail.append(email1)
-rcpt_mail.append(email2)
+rcpt_mail = [rcpt_mail] + email2
 
 # dont change below
 filesresult = []
