@@ -118,7 +118,7 @@ def statusMessage():
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
-    message["To"] = rcpt_mail
+    message["To"] = ', '.join(rcpt_mail)
     message["Cc"] = ', '.join(email2)
 
     # Create the plain-text and HTML version of your message
