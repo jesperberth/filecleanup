@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# File cleanup 0.0.1 - 18/11/2020
+# File cleanup 0.1.1 - 20/11/2020
 # Author  Jesper.berth@arrow.com
 # 
 # create config file /etc/fileclean/config.ini
@@ -121,8 +121,6 @@ def statusMessage():
     message["To"] = receiver_email
    
     # Create the plain-text and HTML version of your message
-    text = """\
-    Transport Server - Clean up report"""
     html = """\
     <html>
     <body>
@@ -139,16 +137,14 @@ def statusMessage():
     """.format(filecount, dircount, storagepath, startTime, endTime, freedDisk, availAfterClean)
 
     # Turn these into plain/html MIMEText objects
-    #part1 = MIMEText(text, "plain")
-    part2 = MIMEText(html, "html")
+    part = MIMEText(html, "html")
 
     # Add HTML/plain-text parts to MIMEMultipart message
-    # The email client will try to render the last part first
-    #message.attach(part1)
-    message.attach(part2)
+
+    message.attach(part)
     attachFile = logfilename
 
-    # Open PDF file in binary mode
+    # Open file in binary mode
     with open(attachFile, "rb") as attachment:
         # Add file as application/octet-stream
         # Email client can usually download this automatically as attachment
