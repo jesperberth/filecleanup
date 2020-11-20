@@ -24,11 +24,11 @@ email = config_object["EMAIL"]
 deletedays = int(format(options["deletedays"]))
 logdir = format(options["logdir"])
 storagepath = format(options["storagepath"])
-port = int(format(options["port"]))
-smtp_server = format(options["smtp_server"])
-sender_email = format(options["sender_email"])
-receiver_email = format(options["receiver_email"])
-password = format(options["password"])
+port = int(format(email["port"]))
+smtp_server = format(email["smtp_server"])
+sender_email = format(email["sender_email"])
+receiver_email = format(email["receiver_email"])
+password = format(email["password"])
 
 # SMTP
 message = """\
