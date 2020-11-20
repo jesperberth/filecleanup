@@ -32,7 +32,7 @@ sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
-email1 = 'jesper.berth@arrow.com'
+rcpt_mail = 'jesper.berth@arrow.com'
 email2 = 'jesper@berthit.dk','berthjesper@gmail.com'
 rcpt_mail = [rcpt_mail] + email2
 
