@@ -106,10 +106,8 @@ def removeDir(dir):
 def getFreeDisk():
     total, used, free = shutil.disk_usage(storagepath)
     free = (free / (1024.0 ** 3))
-    free = format(free,".2f")
     avail = total - used
     avail = (avail / (1024.0 ** 3))
-    avail = format(avail,".2f")
     return free, avail
 
 def statusMessage():
@@ -184,7 +182,9 @@ for x in range(0, 5):
 logfile.close() 
 
 freeAfterClean, availAfterClean = getFreeDisk()
+availAfterClean = format(availAfterClean,".2f")
 freedDisk = freeBeforeClean - freeAfterClean
+freedDisk = format(freedDisk,".2f")
 endTime = timeNow()
 message = statusMessage()
 statusMail(message)
