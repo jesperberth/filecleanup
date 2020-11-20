@@ -30,6 +30,7 @@ port = int(format(email["port"]))
 smtp_server = format(email["smtp_server"])
 sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
+cc_email = format(email["cc_email"])
 password = format(email["password"])
 
 # dont change below
@@ -116,6 +117,7 @@ def statusMessage():
     message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = receiver_email
+    message["cc"] = cc_email
 
     # Create the plain-text and HTML version of your message
     text = """\
@@ -187,7 +189,7 @@ freedDisk = freeBeforeClean - freeAfterClean
 freedDisk = format(freedDisk,".2f")
 endTime = timeNow()
 message = statusMessage()
-#statusMail(message)
+statusMail(message)
 removeFiles(logfilename)
 
 print(receiver_email)
