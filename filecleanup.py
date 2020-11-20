@@ -106,7 +106,8 @@ def removeDir(dir):
 def getFreeDisk():
     total, used, free = shutil.disk_usage(storagepath)
     free = (free / (1024.0 ** 3))
-    return free
+    avail = total - used
+    return free, avail
 
 def statusMessage():
     message = MIMEMultipart("alternative")
@@ -126,12 +127,12 @@ def statusMessage():
             {} files<br> 
             {} folders<br>
             on {}<br>
-    	    Job Started at {}<br>
+    	    Job Started at {}, and ended at {}<br>
             Freeing {} Gb<br>
-            Available space on disk '+ $availStorage +' GB</p>
+            Available space on disk {} GB</p>
     </body>
     </html>
-    """.format(filecount, dircount, storagepath, startTime, freedDisk)
+    """.format(filecount, dircount, storagepath, startTime, endTime, freedDisk, availAfterClean)
 
     # Turn these into plain/html MIMEText objects
     part1 = MIMEText(text, "plain")
@@ -163,7 +164,7 @@ def timeNow():
     return current_time
 
 startTime = timeNow()
-freeBeforeClean = getFreeDisk()
+freeBeforeClean, availBeforeClean = getFreeDisk()
 
 logfile.write("\n#################\n# Removed Files #\n#################\n")
 
@@ -179,9 +180,7 @@ for x in range(0, 5):
 
 logfile.close() 
 
-print("Files: "+ str(filecount))
-print("Dirs: "+ str(dircount))
-freeAfterClean = getFreeDisk()
+freeAfterClean, availAfterClean = getFreeDisk()
 freedDisk = freeBeforeClean - freeAfterClean
 endTime = timeNow()
 message = statusMessage()
