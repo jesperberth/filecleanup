@@ -107,6 +107,7 @@ def getFreeDisk():
     total, used, free = shutil.disk_usage(storagepath)
     free = (free / (1024.0 ** 3))
     avail = total - used
+    avail = (avail / (1024.0 ** 3))
     return free, avail
 
 def statusMessage():
