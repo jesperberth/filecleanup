@@ -106,8 +106,10 @@ def removeDir(dir):
 def getFreeDisk():
     total, used, free = shutil.disk_usage(storagepath)
     free = (free / (1024.0 ** 3))
+    free = format(free,".2f")
     avail = total - used
     avail = (avail / (1024.0 ** 3))
+    avail = format(avail,".2f")
     return free, avail
 
 def statusMessage():
