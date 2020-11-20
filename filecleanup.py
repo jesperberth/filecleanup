@@ -126,10 +126,12 @@ def statusMessage():
             {} files<br> 
             {} folders<br>
             on {}<br>
-    	    Job Started at '+ $startTime +'<br>Freeing '+ $savedStorage +' Gb<br>Available space on disk '+ $availStorage +' GB</p>
+    	    Job Started at {}<br>
+            Freeing {} Gb<br>
+            Available space on disk '+ $availStorage +' GB</p>
     </body>
     </html>
-    """.format(filecount, dircount, storagepath)
+    """.format(filecount, dircount, storagepath, startTime, freedDisk)
 
     # Turn these into plain/html MIMEText objects
     part1 = MIMEText(text, "plain")
@@ -180,6 +182,7 @@ logfile.close()
 print("Files: "+ str(filecount))
 print("Dirs: "+ str(dircount))
 freeAfterClean = getFreeDisk()
+freedDisk = freeBeforeClean - freeAfterClean
 endTime = timeNow()
 message = statusMessage()
 statusMail(message)
