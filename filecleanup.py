@@ -33,6 +33,8 @@ receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
 
+receiver_email = [receiver_email] + cc_email
+
 # dont change below
 filesresult = []
 dirresult = []
@@ -117,7 +119,7 @@ def statusMessage():
     message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = receiver_email
-    message["cc"] = cc_email
+    message["Cc"] = cc_email
 
     # Create the plain-text and HTML version of your message
     text = """\
@@ -191,5 +193,3 @@ endTime = timeNow()
 message = statusMessage()
 statusMail(message)
 removeFiles(logfilename)
-
-print(receiver_email)
