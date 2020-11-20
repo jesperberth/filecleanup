@@ -33,8 +33,8 @@ receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
 
-rcpt_mail = ['jesper.berth@arrow.com','test@berthit.dk']
-email2 = ['jesper@berthit.dk','berthjesper@gmail.com']
+rcpt_mail = "jesper.berth@arrow.com"
+email2 = "jesper@berthit.dk"
 
 # dont change below
 filesresult = []
@@ -119,8 +119,8 @@ def statusMessage():
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
-    message["To"] = ', '.join(rcpt_mail)
-    message["Cc"] = ', '.join(email2)
+    message["To"] = rcpt_mail
+    message["Cc"] = email2
 
     # Create the plain-text and HTML version of your message
     text = """\
