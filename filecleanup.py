@@ -32,9 +32,11 @@ sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
+email1 = 'jesper.berth@arrow.com'
+email2 = 'jesper@berthit.dk','berthjesper@gmail.com'
 rcpt_mail = []
-rcpt_mail.append(receiver_email)
-rcpt_mail.append(cc_email)
+rcpt_mail.append(email1)
+rcpt_mail.append(email2)
 
 # dont change below
 filesresult = []
@@ -120,7 +122,7 @@ def statusMessage():
     message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = rcpt_mail
-    message["Cc"] = cc_email
+    message["Cc"] = email2
 
     # Create the plain-text and HTML version of your message
     text = """\
