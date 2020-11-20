@@ -14,6 +14,8 @@ import smtplib
 import ssl
 from datetime import datetime, timedelta
 from configparser import ConfigParser
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Configuration
 config_object = ConfigParser()
@@ -31,16 +33,17 @@ receiver_email = format(email["receiver_email"])
 password = format(email["password"])
 
 # SMTP
-message = """\
-Subject: Hi there
-
-This message is sent from Python."""
+#message = """\
+#Subject: Hi there
+#
+#This message is sent from Python."""
 
 # dont change below
 filesresult = []
 dirresult = []
 filecount = 0
 dircount = 0
+message = ""
 
 pattern = '%a %b %d %H:%M:%S %Y'
 
@@ -111,16 +114,48 @@ def getFreeDisk():
     free = (free / (1024.0 ** 3))
     return free
 
-def statusMail():
+def statusMessage():
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "multipart test"
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    # Create the plain-text and HTML version of your message
+    text = """\
+    Hi,
+    How are you?
+    Real Python has many great tutorials:
+    www.realpython.com"""
+    html = """\
+    <html>
+    <body>
+        <p>Hi,<br>
+        How are you?<br>
+        <a href="http://www.realpython.com">Real Python</a> 
+        has many great tutorials.
+        </p>
+    </body>
+    </html>
+    """
+
+    # Turn these into plain/html MIMEText objects
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part1)
+    message.attach(part2)
+    return message
+
+def statusMail(message):
     context = ssl.create_default_context()
     try:
         server = smtplib.SMTP(smtp_server,port)
-        server.ehlo() # Can be omitted
         server.starttls(context=context) # Secure the connection
-        server.ehlo() # Can be omitted
         server.login(sender_email, password)
         # TODO: Send email here
-        server.sendmail(sender_email, receiver_email, message)
+        server.sendmail(sender_email, receiver_email, message.as_string())
     except Exception as e:
         # Print any error messages to stdout
         print(e)
@@ -146,5 +181,5 @@ logfile.close()
 print("Files: "+ str(filecount))
 print("Dirs: "+ str(dircount))
 freeAfterClean = getFreeDisk()
-statusMail()
-print(password)
+message = statusMessage()
+statusMail(message)
