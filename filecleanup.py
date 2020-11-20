@@ -30,15 +30,7 @@ port = int(format(email["port"]))
 smtp_server = format(email["smtp_server"])
 sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
-cc_email = format(email["cc_email"])
 password = format(email["password"])
-
-rcpt_mail = "jesper.berth@arrow.com"
-email2 = "jesper@berthit.dk"
-
-smtp_reciever = rcpt_mail + ","  + email2
-
-print(smtp_reciever)
 
 # dont change below
 filesresult = []
@@ -123,9 +115,8 @@ def statusMessage():
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
-    message["To"] = rcpt_mail
-    message["Cc"] = email2
-
+    message["To"] = receiver_email
+   
     # Create the plain-text and HTML version of your message
     text = """\
     Transport Server - Clean up report"""
@@ -161,7 +152,7 @@ def statusMail(message):
         server.starttls(context=context) # Secure the connection
         server.login(sender_email, password)
         # TODO: Send email here
-        server.sendmail(sender_email, (smtp_reciever), message.as_string())
+        server.sendmail(sender_email, receiver_email, message.as_string())
     except Exception as e:
         # Print any error messages to stdout
         print(e)
