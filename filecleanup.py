@@ -111,12 +111,11 @@ def getFreeDisk():
     return free, avail
 
 def statusMessage():
-    recipients = receiver_email
     message = MIMEMultipart("alternative")
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
-    message["To"] = ", ".join(recipients)
+    message["To"] = receiver_email
 
     # Create the plain-text and HTML version of your message
     text = """\
@@ -188,5 +187,7 @@ freedDisk = freeBeforeClean - freeAfterClean
 freedDisk = format(freedDisk,".2f")
 endTime = timeNow()
 message = statusMessage()
-statusMail(message)
+#statusMail(message)
 removeFiles(logfilename)
+
+print(receiver_email)
