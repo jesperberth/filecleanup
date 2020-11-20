@@ -117,21 +117,19 @@ def statusMessage():
 
     # Create the plain-text and HTML version of your message
     text = """\
-    Hi,
-    How are you?
-    Real Python has many great tutorials:
-    www.realpython.com"""
+    Transport Server - Clean up report"""
     html = """\
     <html>
     <body>
-        <p>Hi,<br>
-        How are you?<br>
-        <a href="http://www.realpython.com">Real Python</a> 
-        has many great tutorials.
-        </p>
+    	    <h1>Transport Server - Clean up report</h1>
+    	    <p>Clean Up script removed<br> 
+            {} files<br> 
+            {} folders<br>
+            on {}<br>
+    	    Job Started at '+ $startTime +'<br>Freeing '+ $savedStorage +' Gb<br>Available space on disk '+ $availStorage +' GB</p>
     </body>
     </html>
-    """
+    """.format(filecount, dircount, storagepath)
 
     # Turn these into plain/html MIMEText objects
     part1 = MIMEText(text, "plain")
