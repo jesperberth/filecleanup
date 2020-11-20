@@ -32,8 +32,9 @@ sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
-
-receiver_email = [receiver_email] + cc_email
+rcpt_mail = []
+rcpt_mail.append(receiver_email)
+rcpt_mail.append(cc_email)
 
 # dont change below
 filesresult = []
@@ -118,7 +119,7 @@ def statusMessage():
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
-    message["To"] = receiver_email
+    message["To"] = rcpt_mail
     message["Cc"] = cc_email
 
     # Create the plain-text and HTML version of your message
@@ -156,7 +157,7 @@ def statusMail(message):
         server.starttls(context=context) # Secure the connection
         server.login(sender_email, password)
         # TODO: Send email here
-        server.sendmail(sender_email, receiver_email, message.as_string())
+        server.sendmail(sender_email, rcpt_mail, message.as_string())
     except Exception as e:
         # Print any error messages to stdout
         print(e)
@@ -193,3 +194,4 @@ endTime = timeNow()
 message = statusMessage()
 statusMail(message)
 removeFiles(logfilename)
+print(rcpt_mail)
