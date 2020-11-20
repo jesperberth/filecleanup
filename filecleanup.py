@@ -36,7 +36,7 @@ password = format(email["password"])
 rcpt_mail = "jesper.berth@arrow.com"
 email2 = "jesper@berthit.dk"
 
-smtp_reciever = rcpt_mail + email2
+smtp_reciever = rcpt_mail + ","  + email2
 
 print(smtp_reciever)
 
