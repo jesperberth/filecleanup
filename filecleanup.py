@@ -33,9 +33,7 @@ receiver_email = format(email["receiver_email"])
 cc_email = format(email["cc_email"])
 password = format(email["password"])
 rcpt_mail = 'jesper.berth@arrow.com'
-email2 = 'jesper@berthit.dk,berthjesper@gmail.com'
-#rcpt_mail = [rcpt_mail] + email2
-rcpt_mail = email2.split(",") + [rcpt_mail]
+email2 = ['jesper@berthit.dk','berthjesper@gmail.com']
 
 # dont change below
 filesresult = []
@@ -121,7 +119,7 @@ def statusMessage():
     message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = rcpt_mail
-    message["Cc"] = email2
+    message["Cc"] = ', '.join(email2)
 
     # Create the plain-text and HTML version of your message
     text = """\
@@ -158,7 +156,7 @@ def statusMail(message):
         server.starttls(context=context) # Secure the connection
         server.login(sender_email, password)
         # TODO: Send email here
-        server.sendmail(sender_email, [rcpt_mail], message.as_string())
+        server.sendmail(sender_email, (rcpt_mail+cc_email), message.as_string())
     except Exception as e:
         # Print any error messages to stdout
         print(e)
