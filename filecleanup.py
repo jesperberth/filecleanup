@@ -161,7 +161,7 @@ def statusMail(message):
         server.starttls(context=context) # Secure the connection
         server.login(sender_email, password)
         # TODO: Send email here
-        server.sendmail(sender_email, smtp_reciever, message.as_string())
+        server.sendmail(sender_email, (smtp_reciever), message.as_string())
     except Exception as e:
         # Print any error messages to stdout
         print(e)
