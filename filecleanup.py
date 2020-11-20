@@ -12,10 +12,13 @@ import time
 import shutil
 import smtplib
 import ssl
+import email
 from datetime import datetime, timedelta
 from configparser import ConfigParser
-from email.mime.text import MIMEText
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # Configuration
 config_object = ConfigParser()
@@ -111,7 +114,7 @@ def getFreeDisk():
     return free, avail
 
 def statusMessage():
-    message = MIMEMultipart("alternative")
+    message = MIMEMultipart()
     mesSub = "Transport server clean Up - {}".format(startTime)
     message["Subject"] = mesSub
     message["From"] = sender_email
@@ -143,6 +146,24 @@ def statusMessage():
     # The email client will try to render the last part first
     message.attach(part1)
     message.attach(part2)
+    attachFile = logfilename
+
+    # Open PDF file in binary mode
+    with open(attachFile, "rb") as attachment:
+        # Add file as application/octet-stream
+        # Email client can usually download this automatically as attachment
+        attachPart = MIMEBase("application", "octet-stream")
+        attachPart.set_payload(attachment.read())
+    
+    # Encode file in ASCII characters to send by email    
+    encoders.encode_base64(attachPart)
+
+    # Add header as key/value pair to attachment part
+    attachPart.add_header(
+        "Content-Disposition",
+        f"attachment; filename= {attachFile}",
+    )
+    message.attach(attachPart)
     return message
 
 def statusMail(message):
