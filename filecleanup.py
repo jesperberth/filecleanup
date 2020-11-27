@@ -50,7 +50,7 @@ pattern = '%a %b %d %H:%M:%S %Y'
 logfilename = datetime.now().strftime("%Y%m%d-%H%M%S")
 logfilename = logdir+"fileclean-"+logfilename+".txt"
 
-myTeamsMessage = pymsteams.connectorcard(webhook)
+#myTeamsMessage = pymsteams.connectorcard(webhook)
 
 print("File Cleanup")
 
@@ -168,7 +168,7 @@ def statusMessage():
     return message
 
 def teamsStatus():
-    teamstxt = """
+    text = """
     	    <b>Transport Server - Clean up report</b> <br>
     	    Clean Up script removed <br>
             {} files <br>
@@ -178,7 +178,9 @@ def teamsStatus():
             Freeing {} Gb <br>
             Available space on disk {} GB
     """.format(filecount, dircount, storagepath, startTime, endTime, freedDisk, availAfterClean)
-    return teamstxt
+    myTeamsMessage = pymsteams.connectorcard(webhook)
+    myTeamsMessage.text(text)
+    myTeamsMessage.send()
 
 def statusMail(message):
     context = ssl.create_default_context()
@@ -223,7 +225,7 @@ freedDisk = format(freedDisk,".2f")
 endTime = timeNow()
 message = statusMessage()
 statusMail(message)
-text = teamsStatus()
-myTeamsMessage.text(text)
-myTeamsMessage.send()
+teamsStatus()
+#myTeamsMessage.text(text)
+#myTeamsMessage.send()
 removeFiles(logfilename)
