@@ -13,6 +13,7 @@ import shutil
 import smtplib
 import ssl
 import email
+import pymsteams
 from datetime import datetime, timedelta
 from configparser import ConfigParser
 from email import encoders
@@ -25,6 +26,7 @@ config_object = ConfigParser()
 config_object.read("/etc/fileclean/config.ini")
 options = config_object["OPTIONS"]
 email = config_object["EMAIL"]
+teams = config_object["TEAMS"]
 
 deletedays = int(format(options["deletedays"]))
 logdir = format(options["logdir"])
@@ -34,6 +36,7 @@ smtp_server = format(email["smtp_server"])
 sender_email = format(email["sender_email"])
 receiver_email = format(email["receiver_email"])
 password = format(email["password"])
+webhook = format(teams["webhook"])
 
 # dont change below
 filesresult = []
@@ -46,6 +49,8 @@ pattern = '%a %b %d %H:%M:%S %Y'
 
 logfilename = datetime.now().strftime("%Y%m%d-%H%M%S")
 logfilename = logdir+"fileclean-"+logfilename+".txt"
+
+myTeamsMessage = pymsteams.connectorcard(webhook)
 
 print("File Cleanup")
 
@@ -162,6 +167,19 @@ def statusMessage():
     message.attach(attachPart)
     return message
 
+def teamsStatus():
+    teamstxt = """
+    	    <b>Transport Server - Clean up report</b> <br>
+    	    Clean Up script removed <br>
+            {} files <br>
+            {} folders <br>
+            on {} <br>
+    	    Job Started at {}, and ended at {} <br>
+            Freeing {} Gb <br>
+            Available space on disk {} GB
+    """.format(filecount, dircount, storagepath, startTime, endTime, freedDisk, availAfterClean)
+    return teamstxt
+
 def statusMail(message):
     context = ssl.create_default_context()
     try:
@@ -205,4 +223,7 @@ freedDisk = format(freedDisk,".2f")
 endTime = timeNow()
 message = statusMessage()
 statusMail(message)
+text = teamsStatus()
+myTeamsMessage.text(text)
+myTeamsMessage.send()
 removeFiles(logfilename)

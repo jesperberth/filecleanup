@@ -2,6 +2,10 @@
 
 Python script to clean up files not used in xx days
 
+## PyPI
+
+pip install pymsteams
+
 ## Config file
 
 Place config file in /etc/fileclean/config.ini
@@ -11,6 +15,9 @@ Place config file in /etc/fileclean/config.ini
 storagepath = /mnt/data
 deletedays = -10
 logdir = /tmp/
+
+[TEAMS]
+webhook = teamswebhookurl
 
 [EMAIL]
 port = 587
