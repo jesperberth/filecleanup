@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # File cleanup 0.1.1 - 20/11/2020
 # Author  Jesper.berth@arrow.com
-# 
+#
 # create config file /etc/fileclean/config.ini
-# 
+#
 #
 #
 import os
@@ -49,8 +49,6 @@ pattern = '%a %b %d %H:%M:%S %Y'
 
 logfilename = datetime.now().strftime("%Y%m%d-%H%M%S")
 logfilename = logdir+"fileclean-"+logfilename+".txt"
-
-#myTeamsMessage = pymsteams.connectorcard(webhook)
 
 print("File Cleanup")
 
@@ -124,14 +122,14 @@ def statusMessage():
     message["Subject"] = mesSub
     message["From"] = sender_email
     message["To"] = receiver_email
-   
+
     # Create the plain-text and HTML version of your message
     html = """\
     <html>
     <body>
     	    <h1>Transport Server - Clean up report</h1>
-    	    <p>Clean Up script removed<br> 
-            {} files<br> 
+    	    <p>Clean Up script removed<br>
+            {} files<br>
             {} folders<br>
             on {}<br>
     	    Job Started at {}, and ended at {}<br>
@@ -155,8 +153,8 @@ def statusMessage():
         # Email client can usually download this automatically as attachment
         attachPart = MIMEBase("application", "octet-stream")
         attachPart.set_payload(attachment.read())
-    
-    # Encode file in ASCII characters to send by email    
+
+    # Encode file in ASCII characters to send by email
     encoders.encode_base64(attachPart)
 
     # Add header as key/value pair to attachment part
@@ -194,7 +192,7 @@ def statusMail(message):
         # Print any error messages to stdout
         print(e)
     finally:
-        server.quit() 
+        server.quit()
 
 def timeNow():
     now = datetime.now()
@@ -216,7 +214,7 @@ for x in range(0, 5):
     testDirs()
     dirresult.clear()
 
-logfile.close() 
+logfile.close()
 
 freeAfterClean, availAfterClean = getFreeDisk()
 availAfterClean = format(availAfterClean,".2f")
@@ -226,6 +224,4 @@ endTime = timeNow()
 message = statusMessage()
 statusMail(message)
 teamsStatus()
-#myTeamsMessage.text(text)
-#myTeamsMessage.send()
 removeFiles(logfilename)
